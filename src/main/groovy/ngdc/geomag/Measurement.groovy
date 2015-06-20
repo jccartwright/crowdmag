@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+import com.vividsolutions.jts.geom.Geometry
+import org.hibernate.annotations.Type
 import groovy.transform.ToString
 
 @Entity
@@ -22,6 +24,10 @@ class Measurement {
     Double z            // nanoTeslas, Downward component of the magnetic field vector
     String device
     Integer appId
+
+    @Type(type="org.hibernate.spatial.GeometryType")
+    private Geometry geom
+
 
     //default constructor required by JPA and not otherwise used
     protected Measurement() {}
