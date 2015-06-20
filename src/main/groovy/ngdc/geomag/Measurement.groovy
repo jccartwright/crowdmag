@@ -29,10 +29,6 @@ class Measurement {
     private Geometry geom
 
 
-    //default constructor required by JPA and not otherwise used
-    protected Measurement() {}
-
-
     //TODO consider using validation framework like JSR-303
     Boolean validate() {
         if (obsTime == null ||
