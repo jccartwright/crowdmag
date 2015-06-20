@@ -1,0 +1,6 @@
+*.iml
+.idea
+.groovy
+.gradle
+build
+**/application.properties
