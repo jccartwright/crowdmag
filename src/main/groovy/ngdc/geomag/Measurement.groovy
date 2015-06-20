@@ -4,7 +4,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+import groovy.transform.ToString
+
 @Entity
+@ToString(includeNames=true, includeFields = true)
 class Measurement {
     @Id
     @GeneratedValue
@@ -20,14 +23,8 @@ class Measurement {
     String device
     Integer appId
 
-
+    //default constructor required by JPA and not otherwise used
     protected Measurement() {}
-
-    //TODO
-    @Override
-    String toString() {
-        return "ObsTime: ${obsTime}, Lon: ${longitude}, Lat: ${latitude}, Altitude: ${altitude}, Accuracy ${accuracy}, X ${x}, Y: ${y}, Z: ${z}, device: ${device}, appId: ${appId}"
-    }
 
 
     //TODO consider using validation framework like JSR-303
