@@ -18,7 +18,7 @@ apply plugin: 'io.spring.dependency-management'
 
 jar {
     baseName = 'crowdmag'
-    version = '0.0.1-SNAPSHOT'
+    version = '1.0-SNAPSHOT'
 }
 sourceCompatibility = 1.7
 targetCompatibility = 1.7
