@@ -1,15 +1,13 @@
 package ngdc.geomag
 
-import javax.annotation.Generated
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
 class Measurement {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue
     private long id
     Date obsTime
     Double longitude    //-180 <= longitude <= 180
