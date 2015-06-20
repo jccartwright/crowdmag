@@ -16,6 +16,10 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import groovy.json.*
 
+import com.vividsolutions.jts.geom.Geometry
+import com.vividsolutions.jts.io.ParseException
+import com.vividsolutions.jts.io.WKTReader
+
 
 // Use annotation to inject log field into the class.
 @Slf4j
@@ -49,7 +53,8 @@ incoming payload in the format:
     def createMeasurement(@RequestBody String jsonString) {
         def json = slurper.parseText(jsonString)
         def savedRecords = 0
-        def measurement
+        Measurement measurement
+        Geometry geom
         json.data.each {
             measurement = new Measurement(obsTime: new Date(it.obsTime),
                                           latitude: it.latitude,
@@ -60,7 +65,8 @@ incoming payload in the format:
                                           y: it.elem_Y,
                                           z: it.elem_Z,
                                           device: json.device,
-                                          appId: json.app_id)
+                                          appId: json.app_id,
+                                          geom: constructPoint(it.longitude, it.latitude))
             println measurement
             println measurement.validate()
             if (measurement.validate() && repository.save(measurement)) {
@@ -96,6 +102,18 @@ incoming payload in the format:
     public String handleException(Exception e) {
         //println "invalid JSON payload: ${e}"
         return new JsonBuilder(["error": "${e.message}"]).toString()
+    }
+
+    //utility method to create a Geometry from a WKT string
+    private Geometry constructPoint(lon, lat) {
+        WKTReader fromText = new WKTReader()
+        Geometry geom = null
+        try {
+            geom = fromText.read("POINT(${lon} ${lat})")
+        } catch (ParseException e) {
+            throw new RuntimeException("Not a WKT string:" + wktString)
+        }
+        return geom
     }
 
 }
