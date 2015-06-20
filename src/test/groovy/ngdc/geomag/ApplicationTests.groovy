@@ -7,9 +7,9 @@ import org.springframework.boot.test.SpringApplicationConfiguration
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
 
 @RunWith(SpringJUnit4ClassRunner)
-@SpringApplicationConfiguration(classes = CrowdmagApplication)
+@SpringApplicationConfiguration(classes = Application)
 @WebAppConfiguration
-class CrowdmagApplicationTests {
+class ApplicationTests {
 
 	@Test
 	void contextLoads() {
